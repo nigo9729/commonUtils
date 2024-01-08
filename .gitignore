@@ -26,3 +26,6 @@ dist-ssr
 template.config.js
 #git tool
 .history
+
+# 自动生成的
+packages/utils/src/index.ts
