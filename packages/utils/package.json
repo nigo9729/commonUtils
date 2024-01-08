@@ -11,8 +11,5 @@
     "凯桥信息"
   ],
   "author": "jaluik",
-  "license": "ISC",
-  "devDependencies": {
-    "glob": "^10.3.10"
-  }
+  "license": "ISC"
 }

@@ -25,6 +25,9 @@ importers:
       eslint-plugin-react-refresh:
         specifier: ^0.4.5
         version: 0.4.5(eslint@8.56.0)
+      glob:
+        specifier: ^10.3.10
+        version: 10.3.10
       husky:
         specifier: ^8.0.3
         version: 8.0.3
@@ -38,11 +41,7 @@ importers:
         specifier: ^5.3.3
         version: 5.3.3
 
-  packages/utils:
-    devDependencies:
-      glob:
-        specifier: ^10.3.10
-        version: 10.3.10
+  packages/utils: {}
 
 packages:
 
