@@ -1,0 +1,25 @@
+.wrap {
+  border-radius: 12px;
+  width: 400px;
+}
+.header {
+  height: 40px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  background-color: #000;
+  color: #fff;
+  font-size: 12px;
+  padding-right: 20px;
+  & > div {
+    cursor: pointer;
+    margin-right: 20px;
+  }
+}
+.editor {
+  height: 200px !important;
+}
+
+.log {
+  background: #242424;
+}

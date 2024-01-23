@@ -15,14 +15,18 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@kq/utils": "workspace:*",
     "@docusaurus/core": "3.1.0",
     "@docusaurus/preset-classic": "3.1.0",
+    "@kq/utils": "workspace:*",
     "@mdx-js/react": "^3.0.0",
+    "@monaco-editor/react": "^4.6.0",
     "clsx": "^2.0.0",
+    "console-feed": "^3.5.0",
     "prism-react-renderer": "^2.3.0",
     "react": "^18.0.0",
-    "react-dom": "^18.0.0"
+    "react-dom": "^18.0.0",
+    "vue": "^3.4.15",
+    "vue-console-feed": "^0.0.29"
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "3.1.0",
