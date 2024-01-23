@@ -4,12 +4,10 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import HomepageFeatures from '@site/src/components/HomepageFeatures';
 import Heading from '@theme/Heading';
-import { encName } from '@kq/utils';
 import styles from './index.module.css';
 
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
-  console.log('encName("张三")', encName('张三'));
   return (
     <header className={clsx('hero hero--primary', styles.heroBanner)}>
       <div className='container'>
