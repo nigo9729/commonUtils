@@ -52,11 +52,9 @@ const CodeRunner = ({ code }: { code?: string }) => {
         theme='vs-dark'
         onMount={handleEditorDidMount}
       />
-      {!!logs.length && (
-        <div className={styles.log}>
-          <Console logs={logs} variant='dark' />
-        </div>
-      )}
+      <div className={styles.log}>
+        {!!logs.length && <Console logs={logs} variant='dark' />}
+      </div>
     </div>
   );
 };
