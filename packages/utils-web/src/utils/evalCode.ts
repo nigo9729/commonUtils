@@ -1,12 +1,16 @@
+import { Hook } from 'console-feed';
 import { guid } from './utils';
+import * as utils from '@kq/utils';
 
 type CreateContextEval = () => {
   remove: () => void;
-  window: Window & typeof globalThis;
   run: (
     src: string,
-    scopes: Record<any, any>,
-    options?: { type?: 'module' | 'script' | 'AsyncFunction' },
+    config: {
+      scopes?: Record<any, any>;
+      options?: Record<any, any>;
+      onMessage?: (event: any) => void;
+    },
   ) => Promise<unknown>;
 };
 
@@ -90,13 +94,20 @@ export const createContextEval: CreateContextEval = () => {
     remove: () => {
       document.body.removeChild(iframe);
     },
-    window: iframe.contentWindow as Window & typeof globalThis,
     /**
      * @param src
      * @param scopes
      * @param options
      */
-    run: (src, scopes = {}, options = {}) => {
+    run: (
+      src: string,
+      config: {
+        scopes?: Record<any, any>;
+        options?: Record<any, any>;
+        onMessage?: (event: any) => void;
+      },
+    ) => {
+      const { scopes = {}, options = {}, onMessage } = config;
       return new Promise((resolve, reject) => {
         const handleMessage = (event: WindowEventMap['message']) => {
           if (event.source !== iframe.contentWindow) {
@@ -126,14 +137,14 @@ export const createContextEval: CreateContextEval = () => {
           type: executionType,
         });
         document.body.appendChild(iframe);
-        const iframeWindow = iframe.contentWindow as Window;
-        Object.keys(scopes).forEach(function (key) {
-          iframeWindow[key as any] = scopes[key];
+        const iframeWindow = iframe.contentWindow as Window & typeof globalThis;
+        Hook(iframeWindow.console as any, onMessage);
+        const windowProperty = Object.assign({}, utils, scopes);
+        Object.keys(windowProperty).forEach(function (key) {
+          iframeWindow[key as any] = windowProperty[key];
         });
         if (executionType === 'script') {
           try {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
             resolve(iframeWindow.eval(src));
           } catch (error) {
             reject(error);

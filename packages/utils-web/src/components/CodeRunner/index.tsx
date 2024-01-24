@@ -1,14 +1,13 @@
 import Editor from '@monaco-editor/react';
 import styles from './index.module.css';
 import { useRef, useState } from 'react';
-import { Console, Hook, Decode } from 'console-feed';
+import { Console, Decode } from 'console-feed';
 import { Message } from 'console-feed/lib/definitions/Component';
 import { createContextEval } from '@site/src/utils/evalCode';
-import { DataAPI } from 'vue-console-feed';
 
 const CodeRunner = () => {
   const editorRef = useRef(null);
-  const [log, setLog] = useState<Message[]>([]);
+  const [logs, setLogs] = useState<Message[]>([]);
   const [codeStr, setCodeStr] = useState('console.log(1)');
 
   function handleEditorDidMount(editor) {
@@ -17,19 +16,17 @@ const CodeRunner = () => {
 
   const runCode = () => {
     const evalContext = createContextEval();
-    const consoleMock = new DataAPI(false, 0);
-    Hook(consoleMock as any, (log1) => {
-      setLog((prev) => [...prev, Decode(log1)] as Message[]);
-    });
     evalContext.run(codeStr, {
-      console: consoleMock,
+      onMessage: (log) => {
+        setLogs((logs) => [...logs, Decode(log)] as Message[]);
+      },
     });
   };
 
   return (
     <div className={styles.wrap}>
       <div className={styles.header}>
-        <div onClick={runCode}>运行代码（ctrl+s）</div>
+        <div onClick={runCode}>运行代码</div>
         <div>复制代码</div>
       </div>
       <Editor
@@ -42,7 +39,7 @@ const CodeRunner = () => {
         onMount={handleEditorDidMount}
       />
       <div className={styles.log}>
-        <Console logs={log} variant='dark' />
+        <Console logs={logs} variant='dark' />
       </div>
     </div>
   );
