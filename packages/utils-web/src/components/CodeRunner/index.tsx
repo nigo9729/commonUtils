@@ -1,15 +1,17 @@
-import Editor from '@monaco-editor/react';
 import styles from './index.module.css';
 import { useEffect, useRef, useState } from 'react';
 import { Console, Decode } from 'console-feed';
 import { Message } from 'console-feed/lib/definitions/Component';
 import { createContextEval } from '@site/src/utils/evalCode';
+import Editor, { useMonaco } from '@monaco-editor/react';
+import utilsTypes from '@site/src/constant/utilsTypes';
 
 const CodeRunner = ({ code }: { code?: string }) => {
   const editorRef = useRef(null);
   const [logs, setLogs] = useState<Message[]>([]);
   const [codeStr, setCodeStr] = useState(code);
   const contextEvalRef = useRef(createContextEval());
+  const monaco = useMonaco();
 
   function handleEditorDidMount(editor) {
     editorRef.current = editor;
@@ -25,6 +27,15 @@ const CodeRunner = ({ code }: { code?: string }) => {
   };
 
   useEffect(() => contextEvalRef.current.remove, []);
+
+  useEffect(() => {
+    // do conditional chaining
+    monaco?.languages.typescript.typescriptDefaults.addExtraLib(utilsTypes);
+    // or make sure that it exists by other ways
+    if (monaco) {
+      console.log(monaco?.languages.typescript.typescriptDefaults);
+    }
+  }, [monaco]);
 
   return (
     <div className={styles.wrap}>
