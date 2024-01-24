@@ -48,6 +48,7 @@ const CodeRunner = ({ code }: { code?: string }) => {
         defaultLanguage='typescript'
         defaultValue={codeStr}
         onChange={setCodeStr}
+        loading={<div className={styles.loading}>加载中</div>}
         options={{ inDiffEditor: false, automaticLayout: true }}
         theme='vs-dark'
         onMount={handleEditorDidMount}

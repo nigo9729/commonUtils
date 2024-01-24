@@ -21,6 +21,15 @@
   background-color: #1c1c1c;
   height: 120px !important;
 }
+.loading {
+  background-color: #1c1c1c;
+  height: 120px !important;
+  color: #fff;
+  width: 100% !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 .log {
   min-height: 26px;
