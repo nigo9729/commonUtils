@@ -90,9 +90,12 @@ export const createContextEval: CreateContextEval = () => {
   iframe.setAttribute('style', 'display: none;');
   const senderId = guid();
   const receiverId = guid();
+  let mounted = false;
   return {
     remove: () => {
-      document.body.removeChild(iframe);
+      if (mounted) {
+        document.body.removeChild(iframe);
+      }
     },
     /**
      * @param src
@@ -107,6 +110,10 @@ export const createContextEval: CreateContextEval = () => {
         onMessage?: (event: any) => void;
       },
     ) => {
+      if (mounted) {
+        document.body.removeChild(iframe);
+        mounted = false;
+      }
       const { scopes = {}, options = {}, onMessage } = config;
       return new Promise((resolve, reject) => {
         const handleMessage = (event: WindowEventMap['message']) => {
@@ -137,6 +144,7 @@ export const createContextEval: CreateContextEval = () => {
           type: executionType,
         });
         document.body.appendChild(iframe);
+        mounted = true;
         const iframeWindow = iframe.contentWindow as Window & typeof globalThis;
         Hook(iframeWindow.console as any, onMessage);
         const windowProperty = Object.assign({}, utils, scopes);

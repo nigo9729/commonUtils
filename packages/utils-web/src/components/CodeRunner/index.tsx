@@ -1,6 +1,6 @@
 import Editor from '@monaco-editor/react';
 import styles from './index.module.css';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Console, Decode } from 'console-feed';
 import { Message } from 'console-feed/lib/definitions/Component';
 import { createContextEval } from '@site/src/utils/evalCode';
@@ -9,19 +9,22 @@ const CodeRunner = () => {
   const editorRef = useRef(null);
   const [logs, setLogs] = useState<Message[]>([]);
   const [codeStr, setCodeStr] = useState('console.log(1)');
+  const contextEvalRef = useRef(createContextEval());
 
   function handleEditorDidMount(editor) {
     editorRef.current = editor;
   }
 
   const runCode = () => {
-    const evalContext = createContextEval();
-    evalContext.run(codeStr, {
+    setLogs([]);
+    contextEvalRef.current.run(codeStr, {
       onMessage: (log) => {
         setLogs((logs) => [...logs, Decode(log)] as Message[]);
       },
     });
   };
+
+  useEffect(() => contextEvalRef.current.remove, []);
 
   return (
     <div className={styles.wrap}>
@@ -38,9 +41,11 @@ const CodeRunner = () => {
         theme='vs-dark'
         onMount={handleEditorDidMount}
       />
-      <div className={styles.log}>
-        <Console logs={logs} variant='dark' />
-      </div>
+      {!!logs.length && (
+        <div className={styles.log}>
+          <Console logs={logs} variant='dark' />
+        </div>
+      )}
     </div>
   );
 };
