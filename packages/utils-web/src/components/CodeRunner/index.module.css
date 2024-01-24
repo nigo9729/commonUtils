@@ -1,6 +1,7 @@
 .wrap {
-  border-radius: 12px;
-  width: 400px;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 20px;
 }
 .header {
   height: 40px;

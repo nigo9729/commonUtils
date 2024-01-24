@@ -5,10 +5,10 @@ import { Console, Decode } from 'console-feed';
 import { Message } from 'console-feed/lib/definitions/Component';
 import { createContextEval } from '@site/src/utils/evalCode';
 
-const CodeRunner = () => {
+const CodeRunner = ({ code }: { code?: string }) => {
   const editorRef = useRef(null);
   const [logs, setLogs] = useState<Message[]>([]);
-  const [codeStr, setCodeStr] = useState('console.log(1)');
+  const [codeStr, setCodeStr] = useState(code);
   const contextEvalRef = useRef(createContextEval());
 
   function handleEditorDidMount(editor) {
