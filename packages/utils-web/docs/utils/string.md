@@ -10,7 +10,7 @@ id: string
 对明细进行加密
 
 ```typescript
-import { encName } from '@kq/utils';
+import { encName } from '@kqfe/utils';
 
 encName('张三');
 

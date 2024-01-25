@@ -8,7 +8,7 @@ export default async function createConfigAsync() {
   await generateUtilsTypes();
 
   const config: Config = {
-    title: '@kq/utils',
+    title: '@kqfe/utils',
     tagline: '凯桥前端通用工具库',
     favicon: 'img/favicon.ico',
 
@@ -64,7 +64,7 @@ export default async function createConfigAsync() {
       // Replace with your project's social card
       image: 'img/docusaurus-social-card.jpg',
       navbar: {
-        title: '@kq/utils',
+        title: '@kqfe/utils',
         logo: {
           alt: 'logo',
           src: 'img/logo.png',

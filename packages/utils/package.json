@@ -1,5 +1,5 @@
 {
-  "name": "@kq/utils",
+  "name": "@kqfe/utils",
   "version": "0.0.1",
   "description": "凯桥通用工具库",
   "main": "dist/index.js",

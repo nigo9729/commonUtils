@@ -29,7 +29,7 @@ function HomepageHeader() {
 
 export default function Home(): JSX.Element {
   return (
-    <Layout title={`@kq/utils`} description='凯桥前端通用工具库'>
+    <Layout title={`@kqfe/utils`} description='凯桥前端通用工具库'>
       <HomepageHeader />
       <main>
         <HomepageFeatures />

@@ -1,6 +1,6 @@
 import { Hook } from 'console-feed';
 import { guid } from './utils';
-import * as utils from '@kq/utils';
+import * as utils from '@kqfe/utils';
 
 type CreateContextEval = () => {
   remove: () => void;
