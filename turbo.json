@@ -1,0 +1,9 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "pipeline": {
+    "start": {
+      "dependsOn": ["@kqfe/utils#build"]
+    },
+    "@kqfe/utils#build": {}
+  }
+}

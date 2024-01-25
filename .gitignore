@@ -30,3 +30,5 @@ template.config.js
 # 自动生成的
 packages/utils/src/index.ts
 packages/utils/coverage
+
+.turbo
