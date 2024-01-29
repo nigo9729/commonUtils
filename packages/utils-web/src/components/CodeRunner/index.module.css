@@ -33,5 +33,6 @@
 
 .log {
   min-height: 26px;
-  background: #242424;
+  color: #fff;
+  background-color: #242424;
 }
