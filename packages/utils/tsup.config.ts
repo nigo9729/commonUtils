@@ -1,9 +1,9 @@
 import { defineConfig } from 'tsup';
-import { writeIndexFile } from './help';
+import { initIndexFile } from './help';
 
 export default defineConfig(async (options) => {
   // 生成src/index.ts的入口文件
-  await writeIndexFile();
+  await initIndexFile();
   return {
     entry: ['src/index.ts'],
     splitting: true,
