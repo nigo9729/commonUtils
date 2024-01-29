@@ -4,7 +4,7 @@ import { Console, Decode } from 'console-feed';
 import { Message } from 'console-feed/lib/definitions/Component';
 import { createContextEval } from '@site/src/utils/evalCode';
 import Editor, { useMonaco } from '@monaco-editor/react';
-import utilsTypes from '!!raw-loader!@kqfe/utils/dist/index.d.ts';
+import utilsTypes from '@site/src/constant/utilsTypes';
 
 const CodeRunner = ({ code }: { code?: string }) => {
   const editorRef = useRef(null);

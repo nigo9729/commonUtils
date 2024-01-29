@@ -1,5 +1,5 @@
-export default `/** 名字脱敏 */
-declare const encName: (str?: string) => string;
+import utilsTypes from '!!raw-loader!@kqfe/utils/dist/index.d.ts';
 
+const removeExportData = utilsTypes.replace(/export {[^}]*};/g, '');
 
-`
+export default removeExportData;
