@@ -15,8 +15,8 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@docusaurus/core": "3.1.0",
-    "@docusaurus/preset-classic": "3.1.0",
+    "@docusaurus/core": "3.1.1",
+    "@docusaurus/preset-classic": "3.1.1",
     "@kqfe/utils": "workspace:*",
     "@mdx-js/react": "^3.0.0",
     "@monaco-editor/react": "^4.6.0",
@@ -27,11 +27,11 @@
     "react-dom": "^18.0.0"
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "3.1.0",
+    "@docusaurus/module-type-aliases": "3.1.1",
     "@docusaurus/remark-plugin-npm2yarn": "^3.1.1",
-    "@docusaurus/theme-classic": "^3.1.0",
-    "@docusaurus/tsconfig": "3.1.0",
-    "@docusaurus/types": "3.1.0",
+    "@docusaurus/theme-classic": "^3.1.1",
+    "@docusaurus/tsconfig": "3.1.1",
+    "@docusaurus/types": "3.1.1",
     "@types/node": "^20.10.7",
     "@types/react": "^18.0.0",
     "raw-loader": "^4.0.2",
