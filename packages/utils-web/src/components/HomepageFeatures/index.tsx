@@ -1,9 +1,9 @@
 import clsx from 'clsx';
 import Heading from '@theme/Heading';
 import styles from './styles.module.css';
-import icon1 from '@site/static/img/logo.png';
-import icon2 from '@site/static/img/logo.png';
-import icon3 from '@site/static/img/logo.png';
+import icon1 from '@site/static/img/js.png';
+import icon2 from '@site/static/img/data.png';
+import icon3 from '@site/static/img/tiny.png';
 
 type FeatureItem = {
   title: string;
