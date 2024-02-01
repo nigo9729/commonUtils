@@ -24,3 +24,17 @@ export const desensitizePhone = (str?: string) => {
   const sep = length > 7 ? '****' : '*'.repeat(length - 3);
   return str.substring(0, 3) + sep + str.substring(7);
 };
+
+/**
+ * 脱敏身份证号
+ * @param str 身份证号
+ * @returns 比如 110101199007123811 => 1101**********3811
+ */
+export const desensitizeIdNum = (str?: string): string => {
+  if (!str) {
+    return '';
+  }
+  const length = str.length;
+  const sep = '*'.repeat(Math.min(length - 4, 10));
+  return str.substring(0, 4) + sep + str.substring(14);
+};

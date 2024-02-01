@@ -1,4 +1,4 @@
-import { desensitizeName, desensitizePhone } from '../string';
+import { desensitizeName, desensitizePhone, desensitizeIdNum } from '../string';
 import { expect, test, describe } from '@jest/globals';
 
 describe('测试desensitizeName', () => {
@@ -26,5 +26,17 @@ describe('测试desensitizePhone', () => {
   });
   test('desensitizePhone可以正确非正常5位的手机号', () => {
     expect(desensitizePhone('18580')).toBe('185**');
+  });
+});
+
+describe('测试desensitizeIdNum', () => {
+  test('desensitizeIdNum返回空字符串', () => {
+    expect(desensitizeIdNum('')).toBe('');
+  });
+  test('desensitizeIdNum可以正确加密18位的身份证号', () => {
+    expect(desensitizeIdNum('110101199007123811')).toBe('1101**********3811');
+  });
+  test('desensitizeIdNum可以正确非正常5位的身份证号', () => {
+    expect(desensitizeIdNum('110101')).toBe('1101**');
   });
 });
