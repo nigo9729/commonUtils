@@ -39,7 +39,9 @@ const watchFileChange = () => {
 };
 
 /** 自动生成index.ts 文件，动态引入并监听 */
-export const initIndexFile = async () => {
+export const initIndexFile = async (watchMode: boolean) => {
   await writeIndexFile();
-  watchFileChange();
+  if (watchMode) {
+    watchFileChange();
+  }
 };

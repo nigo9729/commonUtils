@@ -3,7 +3,7 @@ import { initIndexFile } from './help';
 
 export default defineConfig(async (options) => {
   // 生成src/index.ts的入口文件
-  await initIndexFile();
+  await initIndexFile(!!options.watch);
   return {
     entry: ['src/index.ts'],
     splitting: true,
