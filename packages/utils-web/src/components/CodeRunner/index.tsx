@@ -41,7 +41,7 @@ const CodeRunner = ({ code }: { code?: string }) => {
     <div className={styles.wrap}>
       <div className={styles.header}>
         <div onClick={runCode}>运行代码</div>
-        <div>复制代码</div>
+        {/* <div>复制代码</div> */}
       </div>
       <Editor
         className={styles.editor}
