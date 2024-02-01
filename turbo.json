@@ -4,6 +4,7 @@
     "start": {
       "dependsOn": ["@kqfe/utils#build"]
     },
+    "test": {},
     "@kqfe/utils#build": {}
   }
 }
