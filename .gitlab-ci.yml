@@ -15,7 +15,7 @@ test:
   variables:
     CI: 'true'
   script:
-    - npm install -g pnpm@8.4.0
+    - npm install -g pnpm@8.4.0 --registry https://registry.npmmirror.com
     - pnpm install
     - pnpm run test
   tags:
@@ -31,6 +31,7 @@ publish:
     NPM_TOKEN: $NPM_TOKEN
   interruptible: true
   script:
+    - npm install -g pnpm@8.4.0 --registry https://registry.npmmirror.com
     - pnpm instal
     - pnpm run build:utils
     - cd packages/utils
