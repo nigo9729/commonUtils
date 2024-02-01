@@ -1,4 +1,4 @@
-import { desensitizeName, desensitizePhone, desensitizeIdNum } from '../string';
+import { desensitizeName, desensitizePhone, desensitizeIdNum } from '../';
 import { expect, test, describe } from '@jest/globals';
 
 describe('测试desensitizeName', () => {

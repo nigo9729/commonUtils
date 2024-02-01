@@ -5,7 +5,7 @@ id: string
 
 > 字符串相关的处理函数
 
-### desensitizeName（姓名脱敏）
+### desensitizeName
 
 对姓名进行脱敏
 
@@ -21,7 +21,7 @@ desensitizeName('张三');
 console.log(desensitizeName('测试'));
 ```
 
-### desensitizePhone（手机号脱敏）
+### desensitizePhone
 
 对手机号进行脱敏
 
@@ -37,7 +37,7 @@ desensitizeName('13800138000');
 console.log(desensitizePhone('13800138000'));
 ```
 
-### desensitizeIdNum（身份证号脱敏）
+### desensitizeIdNum
 
 对身份证号进行脱敏
 
