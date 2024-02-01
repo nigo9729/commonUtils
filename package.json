@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "turbo test",
-    "docs:start": "turbo start --filter=@kqfe/utils*"
+    "docs:start": "turbo start --filter=@kqfe/utils*",
+    "build": "turbo build --filter=@kqfe/utils*"
   },
   "keywords": [],
   "author": "jaluik",

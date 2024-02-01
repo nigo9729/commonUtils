@@ -5,12 +5,14 @@ import { Message } from 'console-feed/lib/definitions/Component';
 import { createContextEval } from '@site/src/utils/evalCode';
 import Editor, { useMonaco } from '@monaco-editor/react';
 import utilsTypes from '@site/src/constant/utilsTypes';
+import useIsBrowser from '@docusaurus/useIsBrowser';
 
 const CodeRunner = ({ code }: { code?: string }) => {
   const editorRef = useRef(null);
   const [logs, setLogs] = useState<Message[]>([]);
   const [codeStr, setCodeStr] = useState(code);
-  const contextEvalRef = useRef(createContextEval());
+  const isBrowser = useIsBrowser();
+  const contextEvalRef = useRef(isBrowser ? createContextEval() : null);
   const monaco = useMonaco();
 
   function handleEditorDidMount(editor) {
@@ -19,14 +21,14 @@ const CodeRunner = ({ code }: { code?: string }) => {
 
   const runCode = () => {
     setLogs([]);
-    contextEvalRef.current.run(codeStr, {
+    contextEvalRef.current?.run(codeStr, {
       onMessage: (log) => {
         setLogs((logs) => [...logs, Decode(log)] as Message[]);
       },
     });
   };
 
-  useEffect(() => contextEvalRef.current.remove, []);
+  useEffect(() => contextEvalRef.current?.remove, []);
 
   useEffect(() => {
     // do conditional chaining
