@@ -1,0 +1,46 @@
+stages:
+  - test
+  - build
+  - publish
+
+variables:
+  BUILD_IMAGE:
+    'node:18'
+    # 取消git clean删除node_modules的操作  https://docs.gitlab.com/ee/ci/large_repositories/#store-custom-clone-options-in-configtoml
+  GIT_CLEAN_FLAGS: -ffdx -e node_modules/ -e .yarn
+
+test:
+  stage: test
+  image: $BUILD_IMAGE
+  variables:
+    CI: 'true'
+  script:
+    - npm install -g pnpm@8.4.0
+    - pnpm install
+    - pnpm run test
+  tags:
+    - kq-front-test
+
+publish:
+  stage: publish
+  image: $BUILD_IMAGE
+  dependencies:
+    - test
+  variables:
+    CI: 'true'
+    NPM_TOKEN: $NPM_TOKEN
+  interruptible: true
+  script:
+    - pnpm instal
+    - pnpm run build:utils
+    - cd packages/utils
+    - touch .npmrc
+    - echo "registry=https://registry.npmjs.org/" > .npmrc
+    - echo "//registry.npmjs.org/:always-auth=true" >> .npmrc
+    - echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> .npmrc
+    - npm publish
+    - curl https://npmmirror.com/sync/@kqfe/utils
+  tags:
+    - kq-front-test
+  only:
+    - /^v.*$/
