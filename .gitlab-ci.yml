@@ -32,7 +32,7 @@ publish:
   interruptible: true
   script:
     - npm install -g pnpm@8.4.0 --registry https://registry.npmmirror.com
-    - pnpm instal
+    - pnpm install
     - pnpm run build:utils
     - cd packages/utils
     - touch .npmrc
