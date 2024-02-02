@@ -35,7 +35,9 @@ const watchFileChange = () => {
     `!${entryFile}`,
   ]);
 
-  watcher.on(['change', 'add', 'unlink'], writeIndexFile);
+  ['change', 'add', 'unlink'].forEach((event) =>
+    watcher.on(event, writeIndexFile),
+  );
 };
 
 /** 自动生成index.ts 文件，动态引入并监听 */
