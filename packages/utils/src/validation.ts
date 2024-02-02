@@ -40,7 +40,8 @@ export const isValidIdNum = (str?: string): boolean => {
   }
 
   const remainder = sum % 11;
-  const checkCode = checkCodeMap[remainder.toString()];
+  const checkCode =
+    checkCodeMap[remainder.toString() as keyof typeof checkCodeMap];
 
   // 校验码匹配
   return str[17].toUpperCase() === checkCode.toString();
