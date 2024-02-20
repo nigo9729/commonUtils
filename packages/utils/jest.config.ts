@@ -14,8 +14,6 @@ export default async (): Promise<Config> => {
         statements: 95,
       },
     },
-    setupFiles: [
-      '<rootDir>/jest.setup.ts', // 指向你的设置脚本文件
-    ],
+    setupFiles: ['<rootDir>/jest.setup.ts'],
   };
 };
