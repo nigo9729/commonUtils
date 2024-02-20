@@ -1,6 +1,6 @@
 ---
-title: 诊断信息格式化与解析
-id: diagnosis-formatting-parsing
+title: format 格式化
+id: format
 ---
 
 > 提供诊断信息在数组与字符串格式之间转换的函数。
@@ -17,7 +17,16 @@ id: diagnosis-formatting-parsing
 
 - `string`: 格式化后的诊断信息字符串，格式为：`无|诊断名称|无|诊断代码`，不同诊断之间用分号(`;`)分隔。
 
-#### 示例
+```typescript
+import { formatDiagnosis } from '@kqfe/utils';
+
+formatDiagnosis([
+  { name: '感冒', code: 'J02.900' },
+  { name: '发烧', code: 'A01.000' },
+]);
+
+// "无|感冒|无|J02.900;无|发烧|无|A01.000"
+```
 
 ```typescript run
 console.log(
@@ -41,7 +50,13 @@ console.log(
 
 - `DiagnosisObj[]`: 解析后的诊断信息数组，每个对象包含 `name`（诊断名称）和 `code`（诊断代码）。
 
-#### 示例
+```typescript
+import { parseDiagnosis } from '@kqfe/utils';
+
+parseDiagnosis('无|感冒|无|J02.900;无|发烧|无|A01.000');
+
+// [ { name: '感冒', code: 'J02.900' }, { name: '发烧', code: 'A01.000' } ]
+```
 
 ```typescript run
 console.log(parseDiagnosis('无|感冒|无|J02.900;无|发烧|无|A01.000'));
