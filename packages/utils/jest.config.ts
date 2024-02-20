@@ -5,6 +5,7 @@ export default async (): Promise<Config> => {
   await initIndexFile(false);
   return {
     collectCoverage: true,
+    testEnvironment: 'jest-environment-jsdom',
     coverageThreshold: {
       global: {
         branches: 95,
@@ -13,5 +14,8 @@ export default async (): Promise<Config> => {
         statements: 95,
       },
     },
+    setupFiles: [
+      '<rootDir>/jest.setup.ts', // 指向你的设置脚本文件
+    ],
   };
 };

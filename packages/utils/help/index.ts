@@ -9,7 +9,12 @@ export const writeIndexFile = async () => {
   const entryFile = path.resolve(baseUrl, 'index.ts');
 
   const toolFiles = await glob(`${baseUrl}/**/**.ts`, {
-    ignore: ['node_modules/**', '**/__tests__/**', entryFile],
+    ignore: [
+      'node_modules/**',
+      '**/__tests__/**',
+      `${baseUrl}/**/**.d.ts`,
+      entryFile,
+    ],
   });
 
   const relativePaths = toolFiles.map((file) => {
