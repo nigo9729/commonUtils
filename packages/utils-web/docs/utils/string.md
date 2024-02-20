@@ -52,3 +52,34 @@ desensitizeName('110101199007123811');
 ```typescript run
 console.log(desensitizeIdNum('110101199007123811'));
 ```
+
+### translateGender
+
+对输入的性别标识进行转换
+
+```typescript
+import { translateGender } from '@kqfe/utils';
+
+translateGender('M');
+
+//m | M | 1 | 男 => 男
+```
+
+```typescript run
+console.log(translateGender('M'));
+```
+
+### parseJSON
+
+对输入的性别标识进行转换
+
+```typescript
+import { parseJSON } from '@kqfe/utils';
+
+parseJSON('{"name":"John", "age":30, "city":"New York"}');
+
+```
+
+```typescript run
+console.log(parseJSON('{"name":"John", "age":30, "city":"New York"}'));
+```
