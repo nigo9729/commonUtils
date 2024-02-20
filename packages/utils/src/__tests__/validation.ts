@@ -1,4 +1,4 @@
-import { isValidIdNum, isValidPhone } from '../';
+import { isValidIdNum, isValidPhone, isValidBankCardNumber } from '../';
 import { expect, test, describe } from '@jest/globals';
 
 describe('测试isValidIdNum', () => {
@@ -25,5 +25,20 @@ describe('测试isValidPhone', () => {
   });
   test('测试isValidPhone校验正确手机号', () => {
     expect(isValidPhone('18580001234')).toBeTruthy();
+  });
+});
+
+describe('测试isValidBankCardNumber', () => {
+  test('测试isValidBankCardNumber校验空字符串', () => {
+    expect(isValidBankCardNumber('')).toBeFalsy();
+  });
+  test('测试isValidBankCardNumber位数不足', () => {
+    expect(isValidBankCardNumber('54738957493')).toBeFalsy();
+  });
+  test('测试isValidBankCardNumber不能0开头', () => {
+    expect(isValidBankCardNumber('05473895749332232')).toBeFalsy();
+  });
+  test('测试isValidBankCardNumber正确卡号', () => {
+    expect(isValidBankCardNumber('5473895749332232')).toBeTruthy();
   });
 });
