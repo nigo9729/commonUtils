@@ -5,6 +5,7 @@ export default async (): Promise<Config> => {
   await initIndexFile(false);
   return {
     collectCoverage: true,
+    testEnvironment: 'jest-environment-jsdom',
     coverageThreshold: {
       global: {
         branches: 95,
