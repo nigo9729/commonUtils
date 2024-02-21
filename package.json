@@ -37,9 +37,5 @@
   },
   "engines": {
     "node": ">=18"
-  },
-  "dependencies": {
-    "@types/jest": "^29.5.12",
-    "decimal.js": "^10.4.3"
   }
 }

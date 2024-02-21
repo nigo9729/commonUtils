@@ -73,7 +73,6 @@ export const setWechatWebFontSize = (): void => {
 
   // 微信字体设置处理函数
   const handleFontSize = () => {
-    console.log('设置微信字体');
     const WeixinJSBridge = (window as any).WeixinJSBridge;
 
     WeixinJSBridge.invoke('setFontSizeCallback', { fontSize: 0 });
