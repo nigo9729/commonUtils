@@ -1,5 +1,5 @@
 ---
-title: getPrice 校验
+title: GetPrice 获取金额
 id: getPrice
 ---
 
