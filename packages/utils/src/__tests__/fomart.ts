@@ -1,4 +1,4 @@
-import { formatDiagnosis, parseDiagnosis, centsConversionYuan } from '../';
+import { formatDiagnosis, parseDiagnosis, centsConversionYuan } from '..';
 import { describe, expect, test } from '@jest/globals';
 
 describe('诊断格式化与解析', () => {
