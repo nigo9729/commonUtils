@@ -1,18 +1,13 @@
-// declare const wx: any;
+/* eslint-disable no-var */
 
-// declare namespace NodeJS {
-//   export interface Global {
-//     wx: {
-//       getSystemInfo: () => string;
-//     };
-//   }
-// }
+declare var wx: any;
+declare var my: any;
 
-declare let global: typeof globalThis & {
-  wx: {
-    getSystemInfo: () => string;
+declare module globalThis {
+  var wx = {
+    getSystemInfo: () => string,
   };
-  my: {
-    getSystemInfo: () => string;
+  var my = {
+    getSystemInfo: () => string,
   };
-};
+}

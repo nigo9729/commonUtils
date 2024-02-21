@@ -1,31 +1,24 @@
 import { getRunningEnvironment } from '../platform';
 
-declare global {
-  const wx: {
-    getSystemInfo: () => string;
-  };
-}
-
 describe('getRunningEnvironment', () => {
+  afterEach(() => {
+    global.wx = undefined;
+    global.my = undefined;
+  });
+
   it('正确识别微信小程序环境', () => {
     global.wx = { getSystemInfo: jest.fn() };
     expect(getRunningEnvironment()).toBe('wechat');
-    delete globalObj.wx;
   });
 
   it('正确识别支付宝小程序环境', () => {
-    globalObj.my = { getSystemInfo: jest.fn() };
+    global.my = { getSystemInfo: jest.fn() };
     expect(getRunningEnvironment()).toBe('ali');
-    delete globalObj.my;
   });
 
   it('应当返回 "browser" 当在浏览器环境中', () => {
     // 确保 wx 和 my 都未定义，模拟浏览器环境
     expect(getRunningEnvironment()).toEqual('browser');
-  });
-
-  afterEach(() => {
-    jest.resetModules();
   });
 });
 
