@@ -1,4 +1,5 @@
-import { formatDiagnosis, parseDiagnosis } from '../'; // 假设您的函数在diagnosis.ts文件中
+import { formatDiagnosis, parseDiagnosis, centsConversionYuan } from '../';
+import { describe, expect, test } from '@jest/globals';
 
 describe('诊断格式化与解析', () => {
   const mockDiagnosis = [
@@ -26,5 +27,38 @@ describe('诊断格式化与解析', () => {
   test('从数组到字符串再回到数组的转换应返回原始数组', () => {
     const roundTrip = parseDiagnosis(formatDiagnosis(mockDiagnosis));
     expect(roundTrip).toEqual(mockDiagnosis);
+  });
+});
+describe('测试centsConversionYuan', () => {
+  test('returns 1000 for "10.00"', () => {
+    expect(centsConversionYuan({ cents: 1000 })).toBe('10.00');
+  });
+  test('测试保留小数位数', () => {
+    expect(centsConversionYuan({ cents: 1000, decimalPlaces: 3 })).toBe(
+      '10.000',
+    );
+  });
+  test('测试开启每三位数添加一个,符号', () => {
+    expect(
+      centsConversionYuan({
+        cents: 101111,
+        decimalPlaces: 3,
+        isThousandSeparator: true,
+      }),
+    ).toBe('1,011.110');
+  });
+  test('测试不开启显示符号', () => {
+    expect(
+      centsConversionYuan({
+        cents: 101111,
+        decimalPlaces: 1,
+        isThousandSeparator: false,
+      }),
+    ).toBe('1011.1');
+  });
+  test('测试不要小数点', () => {
+    expect(centsConversionYuan({ cents: 101111, decimalPlaces: 0 })).toBe(
+      '1011',
+    );
   });
 });

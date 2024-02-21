@@ -30,3 +30,49 @@ export const parseDiagnosis = (diagnosis: string): DiagnosisObj[] => {
     };
   });
 };
+/**
+ * 分转成元
+ * @returns 比如 1000 => 10.00
+ * @param cents 金额，单位：分
+ * @param decimalPlaces 小数位长度
+ * @param isThousandSeparator 开启千分位分隔符,每三位数添加一个,符号
+ */
+export const centsConversionYuan = ({
+  cents = 0,
+  decimalPlaces = 2,
+  isThousandSeparator = false,
+}: {
+  cents: number;
+  decimalPlaces?: number;
+  isThousandSeparator?: boolean;
+}): string => {
+  const float = cents / 100;
+  let result = (
+    Math.round(float * Math.pow(10, decimalPlaces)) /
+    Math.pow(10, decimalPlaces)
+  ).toFixed(decimalPlaces);
+  result =
+    float !== parseFloat(result)
+      ? float.toFixed(decimalPlaces).toString()
+      : result;
+  let splitResult = '';
+  if (isThousandSeparator) {
+    // 检查是否有小数点
+    const hasDecimal: boolean = result.includes('.');
+
+    // 拆分整数部分和小数部分
+    let integerPart = result.split('.')[0];
+    const decimalPart = result.split('.')?.[1];
+
+    // 对整数部分添加逗号
+    integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+    // 如果有小数部分，则将整数部分和小数部分合并
+    if (hasDecimal) {
+      splitResult = `${integerPart}.${decimalPart}`;
+    } else {
+      splitResult = integerPart;
+    }
+  }
+  return isThousandSeparator ? splitResult : result;
+};
