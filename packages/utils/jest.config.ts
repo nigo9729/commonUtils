@@ -14,6 +14,5 @@ export default async (): Promise<Config> => {
         statements: 95,
       },
     },
-    setupFiles: ['<rootDir>/jest.setup.ts'],
   };
 };

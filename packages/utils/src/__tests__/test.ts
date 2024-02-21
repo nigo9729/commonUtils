@@ -1,17 +1,6 @@
-// import { parseBrowser } from '../platform';
-
 import { parseBrowser } from '..';
 
 describe('parseBrowser', () => {
-  //   it('应该返回wechat当在微信环境中', () => {
-  //     Object.defineProperty(window.navigator, 'userAgent', {
-  //       value: 'micromessenger',
-  //       configurable: true,
-  //     });
-
-  //     expect(parseBrowser()).toBe('wechat');
-  //   });
-
   const testSuits = [
     {
       describe: '应该返回wechat当在微信环境中',
