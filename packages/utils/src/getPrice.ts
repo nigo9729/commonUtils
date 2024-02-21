@@ -10,7 +10,8 @@ export const getPrice = (num = 0, len = 2, split = false): string => {
   let result = (
     Math.round(float * Math.pow(10, len)) / Math.pow(10, len)
   ).toFixed(len);
-  result = float !== parseFloat(result) ? float.toFixed(2).toString() : result;
+  result =
+    float !== parseFloat(result) ? float.toFixed(len).toString() : result;
   let splitResult = '';
   if (split) {
     // 检查是否有小数点
