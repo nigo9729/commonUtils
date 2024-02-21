@@ -43,6 +43,12 @@ describe('测试centsConversionYuan', () => {
         isThousandSeparator: true,
       }),
     ).toBe('1,011.110');
+    expect(
+      centsConversionYuan(101100, {
+        decimalPlaces: 0,
+        isThousandSeparator: true,
+      }),
+    ).toBe('1,011');
   });
   test('测试不开启显示符号', () => {
     expect(

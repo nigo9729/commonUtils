@@ -40,7 +40,7 @@ export const parseDiagnosis = (diagnosis: string): DiagnosisObj[] => {
  * @param options.isThousandSeparator 开启千分位分隔符,每三位数添加一个,符号
  */
 export const centsConversionYuan = (
-  cents = 0,
+  cents: number,
   options: {
     decimalPlaces?: number;
     isThousandSeparator?: boolean;
