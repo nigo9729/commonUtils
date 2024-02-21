@@ -27,7 +27,14 @@ export const getRunningEnvironment = (): 'wechat' | 'ali' | 'browser' => {
  * - 'Android浏览器'
  * - '未知环境'
  */
-export const parseBrowser = (): string => {
+
+export const parseBrowser = ():
+  | 'notBrowser'
+  | 'wechat'
+  | 'ali'
+  | 'iOS'
+  | 'Android'
+  | 'unknown' => {
   if (getRunningEnvironment() !== 'browser') {
     return 'notBrowser';
   }
