@@ -29,7 +29,7 @@ export const getRunningEnvironment = (): 'wechat' | 'ali' | 'browser' => {
  */
 export const parseBrowser = (): string => {
   if (getRunningEnvironment() !== 'browser') {
-    return 'notBrower';
+    return 'notBrowser';
   }
   // userAgent 字符串用于后续环境判断
   const userAgent = navigator.userAgent.toLowerCase();

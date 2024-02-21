@@ -66,9 +66,9 @@ describe('parseBrowser', () => {
     }),
   );
 
-  it('应该返回notBrower当不在浏览器环境中', () => {
+  it('应该返回notBrowser当不在浏览器环境中', () => {
     global.wx = { getSystemInfo: jest.fn() };
-    expect(parseBrowser()).toBe('notBrower');
+    expect(parseBrowser()).toBe('notBrowser');
   });
 });
 
