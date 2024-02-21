@@ -6,7 +6,6 @@ import { getRunningEnvironment } from './platform';
  * @returns Promise<boolean>
  */
 export const lowerVersionCopy = (text?: string): Promise<boolean> => {
-  if (getRunningEnvironment() !== 'browser') return Promise.reject(false);
   if (!text) return Promise.reject(false);
   try {
     const textArea = document.createElement('textarea');
@@ -34,24 +33,35 @@ export const lowerVersionCopy = (text?: string): Promise<boolean> => {
  * @returns Promise<boolean>
  */
 export const copy = (text?: string): Promise<boolean> => {
-  if (getRunningEnvironment() !== 'browser') return Promise.reject(false);
-  if (!text) return Promise.reject(false);
-  return new Promise((resolve, reject) => {
-    if (!navigator.clipboard || !window.isSecureContext) {
-      lowerVersionCopy(text)
-        .then(() => {
+  // if (getRunningEnvironment() !== 'browser') return Promise.reject(false);
+  if (getRunningEnvironment() === 'wechat') {
+    return new Promise((resolve, reject) => {
+      wx.setClipboardData({
+        data: text,
+        success: function () {
           resolve(true);
-        })
-        .catch(() => {
+        },
+        fail: function () {
           reject(false);
-        });
-    }
-    navigator.clipboard
-      ?.writeText(text)
-      .then(() => {
-        resolve(true);
-      })
-      .catch(() => {
+        },
+      });
+    });
+  } else if (getRunningEnvironment() === 'ali') {
+    return new Promise((resolve, reject) => {
+      my.setClipboard({
+        data: text,
+        success: function () {
+          resolve(true);
+        },
+        fail: function () {
+          reject(false);
+        },
+      });
+    });
+  } else {
+    if (!text) return Promise.reject(false);
+    return new Promise((resolve, reject) => {
+      if (!navigator.clipboard || !window.isSecureContext) {
         lowerVersionCopy(text)
           .then(() => {
             resolve(true);
@@ -59,6 +69,21 @@ export const copy = (text?: string): Promise<boolean> => {
           .catch(() => {
             reject(false);
           });
-      });
-  });
+      }
+      navigator.clipboard
+        ?.writeText(text)
+        .then(() => {
+          resolve(true);
+        })
+        .catch(() => {
+          lowerVersionCopy(text)
+            .then(() => {
+              resolve(true);
+            })
+            .catch(() => {
+              reject(false);
+            });
+        });
+    });
+  }
 };

@@ -86,3 +86,34 @@ export const parseJSON = (value: any): any => {
     return value;
   }
 };
+
+/**
+ * 解析字符串(其格式类似于 url 的 query 参数形式)
+ * @param str 解析的字符串
+ * @returns 解析对象
+ */
+export const parseQueryStr = <T>(str?: string): T => {
+  if (!str) return {} as T;
+  const res = {} as any;
+  const queryStrList = str.split('?');
+  const queryStr = queryStrList[queryStrList.length - 1];
+  if (!queryStr) {
+    return {} as T;
+  }
+  const strList = queryStr.split('&');
+  strList.forEach((str) => {
+    const key = str.split('=')[0];
+    const value = window.decodeURI(str.split('=')[1]);
+    if (res[key]) {
+      // if (typeof res[key] === 'string') {
+      //   res[key] = [res[key], value];
+      // } else {
+      //   res[key].push(value);
+      // }
+      res[key] = [res[key], value];
+    } else {
+      res[key] = value;
+    }
+  });
+  return res as T;
+};

@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-import { copy, lowerVersionCopy } from '../';
+import { copy, lowerVersionCopy } from '..';
 import {
   expect,
   jest,
@@ -44,6 +44,8 @@ describe('copy', () => {
   });
 
   afterEach(() => {
+    global.wx = undefined;
+    global.my = undefined;
     jest.clearAllMocks();
     jest.restoreAllMocks();
   });
@@ -126,6 +128,35 @@ describe('copy', () => {
       }),
       writable: true,
     });
+    await expect(copy('test text')).rejects.toBe(false);
+  });
+
+  it('微信环境成功', () => {
+    global.wx = { getSystemInfo: jest.fn() };
+    global.wx.setClipboardData = (config: { success: () => void }) => {
+      config.success();
+    };
+    expect(copy('test text')).resolves.toBe(true);
+  });
+  it('微信环境不成功', async () => {
+    global.wx = { getSystemInfo: jest.fn() };
+    global.wx.setClipboardData = (config: { fail: () => void }) => {
+      config.fail();
+    };
+    expect(copy('test text')).rejects.toBe(false);
+  });
+  it('支付宝环境成功', async () => {
+    global.my = { getSystemInfo: jest.fn() };
+    global.my.setClipboard = (config: { success: () => void }) => {
+      config.success();
+    };
+    expect(copy('test text')).resolves.toBe(true);
+  });
+  it('支付宝环境不成功', async () => {
+    global.my = { getSystemInfo: jest.fn() };
+    global.my.setClipboard = (config: { fail: () => void }) => {
+      config.fail();
+    };
     await expect(copy('test text')).rejects.toBe(false);
   });
 });
