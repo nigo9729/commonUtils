@@ -31,17 +31,14 @@ describe('诊断格式化与解析', () => {
 });
 describe('测试centsConversionYuan', () => {
   test('returns 1000 for "10.00"', () => {
-    expect(centsConversionYuan({ cents: 1000 })).toBe('10.00');
+    expect(centsConversionYuan(1000)).toBe('10.00');
   });
   test('测试保留小数位数', () => {
-    expect(centsConversionYuan({ cents: 1000, decimalPlaces: 3 })).toBe(
-      '10.000',
-    );
+    expect(centsConversionYuan(1000, { decimalPlaces: 3 })).toBe('10.000');
   });
   test('测试开启每三位数添加一个,符号', () => {
     expect(
-      centsConversionYuan({
-        cents: 101111,
+      centsConversionYuan(101111, {
         decimalPlaces: 3,
         isThousandSeparator: true,
       }),
@@ -49,16 +46,13 @@ describe('测试centsConversionYuan', () => {
   });
   test('测试不开启显示符号', () => {
     expect(
-      centsConversionYuan({
-        cents: 101111,
+      centsConversionYuan(101111, {
         decimalPlaces: 1,
         isThousandSeparator: false,
       }),
     ).toBe('1011.1');
   });
   test('测试不要小数点', () => {
-    expect(centsConversionYuan({ cents: 101111, decimalPlaces: 0 })).toBe(
-      '1011',
-    );
+    expect(centsConversionYuan(101111, { decimalPlaces: 0 })).toBe('1011');
   });
 });

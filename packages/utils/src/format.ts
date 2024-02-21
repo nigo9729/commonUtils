@@ -1,3 +1,4 @@
+import { Decimal } from 'decimal.js';
 type DiagnosisObj = {
   name: string;
   code: string;
@@ -34,27 +35,19 @@ export const parseDiagnosis = (diagnosis: string): DiagnosisObj[] => {
  * 分转成元
  * @returns 比如 1000 => 10.00
  * @param cents 金额，单位：分
- * @param decimalPlaces 小数位长度
- * @param isThousandSeparator 开启千分位分隔符,每三位数添加一个,符号
+ * @param options 配置项
+ * @param options.decimalPlaces 小数位长度
+ * @param options.isThousandSeparator 开启千分位分隔符,每三位数添加一个,符号
  */
-export const centsConversionYuan = ({
+export const centsConversionYuan = (
   cents = 0,
-  decimalPlaces = 2,
-  isThousandSeparator = false,
-}: {
-  cents: number;
-  decimalPlaces?: number;
-  isThousandSeparator?: boolean;
-}): string => {
-  const float = cents / 100;
-  let result = (
-    Math.round(float * Math.pow(10, decimalPlaces)) /
-    Math.pow(10, decimalPlaces)
-  ).toFixed(decimalPlaces);
-  result =
-    float !== parseFloat(result)
-      ? float.toFixed(decimalPlaces).toString()
-      : result;
+  options: {
+    decimalPlaces?: number;
+    isThousandSeparator?: boolean;
+  } = {},
+): string => {
+  const { decimalPlaces = 2, isThousandSeparator = false } = options;
+  const result = new Decimal(cents).div(100).toFixed(decimalPlaces);
   let splitResult = '';
   if (isThousandSeparator) {
     // 检查是否有小数点
