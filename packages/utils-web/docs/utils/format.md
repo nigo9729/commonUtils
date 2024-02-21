@@ -62,3 +62,26 @@ parseDiagnosis('无|感冒|无|J02.900;无|发烧|无|A01.000');
 console.log(parseDiagnosis('无|感冒|无|J02.900;无|发烧|无|A01.000'));
 // 输出：[ { name: '感冒', code: 'J02.900' }, { name: '发烧', code: 'A01.000' } ]
 ```
+
+> 分转成元函数
+
+### centsConversionYuan 
+
+```typescript
+import { centsConversionYuan } from '@kqfe/utils';
+
+centsConversionYuan(1000);
+// 10.00
+```
+
+```typescript run
+//默认保留两位小数点
+console.log(centsConversionYuan(1011));// 10.11
+
+//第二个参数控制保留的小数位数
+console.log(centsConversionYuan(1011,{decimalPlaces:0}));// 10
+
+//第三个参数支持每3位数添加一个,符号
+console.log(centsConversionYuan(1011,{isThousandSeparator:true}));// 1,011.11
+
+```
