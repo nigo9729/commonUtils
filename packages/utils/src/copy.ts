@@ -1,9 +1,12 @@
+import { getRunningEnvironment } from './platform';
+
 /**
  * 文本复制功能（旧浏览器版本复制）
  * @param text 复制文案
  * @returns Promise<boolean>
  */
 export const lowerVersionCopy = (text?: string): Promise<boolean> => {
+  if (getRunningEnvironment() !== 'browser') return Promise.reject(false);
   if (!text) return Promise.reject(false);
   try {
     const textArea = document.createElement('textarea');
@@ -30,7 +33,8 @@ export const lowerVersionCopy = (text?: string): Promise<boolean> => {
  * @param text 复制文案
  * @returns Promise<boolean>
  */
-export const copy = (text?: string) => {
+export const copy = (text?: string): Promise<boolean> => {
+  if (getRunningEnvironment() !== 'browser') return Promise.reject(false);
   if (!text) return Promise.reject(false);
   return new Promise((resolve, reject) => {
     if (!navigator.clipboard || !window.isSecureContext) {
