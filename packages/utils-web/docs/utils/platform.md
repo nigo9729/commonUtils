@@ -21,3 +21,33 @@ getRunningEnvironment();
 ```typescript run
 console.log(getRunningEnvironment());
 ```
+
+### parseBrowser
+
+判断当前运行浏览器
+
+```typescript
+import { parseBrowser } from '@kqfe/utils';
+
+parseBrowser();
+
+// ali  wechat ios ....
+
+```
+
+```typescript run
+console.log(parseBrowser());
+```
+
+### setWechatWebFontSize
+
+禁止微信浏览器调整字体
+
+```typescript
+import { setWechatWebFontSize } from '@kqfe/utils';
+
+setWechatWebFontSize();
+
+
+
+```

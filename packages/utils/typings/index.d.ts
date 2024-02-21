@@ -10,4 +10,5 @@ declare module globalThis {
   var my = {
     getSystemInfo: () => string,
   };
+  var WeixinJSBridge: any;
 }
