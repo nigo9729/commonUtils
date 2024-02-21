@@ -1,4 +1,10 @@
-import { desensitizeName, desensitizePhone, desensitizeIdNum } from '../';
+import {
+  desensitizeName,
+  desensitizePhone,
+  desensitizeIdNum,
+  translateGender,
+  parseJSON,
+} from '../';
 import { expect, test, describe } from '@jest/globals';
 
 describe('测试desensitizeName', () => {
@@ -38,5 +44,113 @@ describe('测试desensitizeIdNum', () => {
   });
   test('desensitizeIdNum可以正确非正常5位的身份证号', () => {
     expect(desensitizeIdNum('110101')).toBe('1101**');
+  });
+});
+
+describe('测试translateGender', () => {
+  test('returns 男 for "M"', () => {
+    expect(translateGender('M')).toBe('男');
+  });
+
+  test('returns 女 for "F"', () => {
+    expect(translateGender('F')).toBe('女');
+  });
+
+  test('returns 男 for "1"', () => {
+    expect(translateGender('1')).toBe('男');
+  });
+
+  test('returns 女 for "0"', () => {
+    expect(translateGender('0')).toBe('女');
+  });
+
+  test('returns 男 for 1', () => {
+    expect(translateGender(1)).toBe('男');
+  });
+
+  test('returns 女 for 0', () => {
+    expect(translateGender(0)).toBe('女');
+  });
+
+  test('returns 未知 for undefined', () => {
+    expect(translateGender(undefined)).toBe('未知');
+  });
+
+  test('returns 未知 for any other input', () => {
+    expect(translateGender('X')).toBe('未知');
+    expect(translateGender('2')).toBe('未知');
+    expect(translateGender('')).toBe('未知');
+  });
+});
+
+describe('测试parseJson', () => {
+  test('returns 男 for "M"', () => {
+    expect(translateGender('M')).toBe('男');
+  });
+
+  test('returns 女 for "F"', () => {
+    expect(translateGender('F')).toBe('女');
+  });
+
+  test('returns 男 for "1"', () => {
+    expect(translateGender('1')).toBe('男');
+  });
+
+  test('returns 女 for "0"', () => {
+    expect(translateGender('0')).toBe('女');
+  });
+
+  test('returns 男 for 1', () => {
+    expect(translateGender(1)).toBe('男');
+  });
+
+  test('returns 女 for 0', () => {
+    expect(translateGender(0)).toBe('女');
+  });
+
+  test('returns 未知 for undefined', () => {
+    expect(translateGender(undefined)).toBe('未知');
+  });
+
+  test('returns 未知 for any other input', () => {
+    expect(translateGender('X')).toBe('未知');
+    expect(translateGender('2')).toBe('未知');
+    expect(translateGender('')).toBe('未知');
+  });
+});
+
+describe('parseJSON函数测试', () => {
+  test('正确解析有效的JSON字符串', () => {
+    const jsonString = '{"name":"John", "age":30, "city":"New York"}';
+    expect(parseJSON(jsonString)).toEqual({
+      name: 'John',
+      age: 30,
+      city: 'New York',
+    });
+  });
+
+  test('对于无效的JSON字符串，返回原始字符串', () => {
+    const nonJsonString = '这不是JSON';
+    expect(parseJSON(nonJsonString)).toBe(nonJsonString);
+  });
+
+  test('对于非字符串输入，返回原始值', () => {
+    const nonStringInput = { message: '我不是字符串' };
+    expect(parseJSON(nonStringInput)).toBe(nonStringInput);
+  });
+
+  test('处理数字输入，返回输入本身', () => {
+    const numberInput = 12345;
+    expect(parseJSON(numberInput)).toBe(numberInput);
+  });
+
+  test('处理null输入，返回输入空字符串', () => {
+    const nullInput = null;
+    expect(parseJSON(nullInput)).toBe('');
+  });
+
+  test('处理数组输入，返回输入本身', () => {
+    const arrayInput = [1, 2, 3, '四'];
+    expect(parseJSON(arrayInput)).toBe(arrayInput);
   });
 });
