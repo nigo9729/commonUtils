@@ -96,6 +96,10 @@ export const parseQueryStr = <T>(str?: string): T => {
   if (!str) return {} as T;
   const res = {} as any;
   const queryStrList = str.split('?');
+  // 兼容没有 ？ 寻找
+  if (queryStrList.length === 1) {
+    return {} as T;
+  }
   const queryStr = queryStrList[queryStrList.length - 1];
   if (!queryStr) {
     return {} as T;

@@ -12,6 +12,8 @@ describe('getQueryParams 函数测试', () => {
   });
 
   afterEach(() => {
+    global.wx = undefined;
+    global.my = undefined;
     jest.clearAllMocks();
     jest.restoreAllMocks();
   });
@@ -29,15 +31,14 @@ describe('getQueryParams 函数测试', () => {
 
   test('空对象', () => {
     window.location.href = 'http://www.example.com';
-    const result = getQueryParams();
-    expect(result).toEqual({});
+    expect(getQueryParams()).toEqual({});
   });
 
   test('微信（支付宝）小程序浏览器环境', () => {
     global.wx = { getSystemInfo: jest.fn() };
     global.getCurrentPages = jest
       .fn()
-      .mockReturnValue([{ route: { options: { key: 'value' } } }]);
+      .mockReturnValue([{ options: { key: 'value' } }]);
     const result = getQueryParams();
     expect(result).toEqual({ key: 'value' });
   });
