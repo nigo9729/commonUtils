@@ -15,13 +15,11 @@
   "author": "jaluik",
   "license": "ISC",
   "dependencies": {
-    "decimal.js": "^10.4.3"
+    "decimal.js": "^10.4.3",
+    "qs": "^6.11.2"
   },
   "devDependencies": {
     "@types/qs": "^6.9.11",
     "jest-environment-jsdom": "^29.7.0"
-  },
-  "dependencies": {
-    "qs": "^6.11.2"
   }
 }
