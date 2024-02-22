@@ -1,3 +1,5 @@
+import qs from 'qs';
+
 /**
  * 名字脱敏
  * @param str 姓名
@@ -94,30 +96,11 @@ export const parseJSON = (value: any): any => {
  */
 export const parseQueryStr = <T>(str?: string): T => {
   if (!str) return {} as T;
-  const res = {} as any;
   const queryStrList = str.split('?');
   // 兼容没有 ？ 寻找
   if (queryStrList.length === 1) {
     return {} as T;
   }
   const queryStr = queryStrList[queryStrList.length - 1];
-  if (!queryStr) {
-    return {} as T;
-  }
-  const strList = queryStr.split('&');
-  strList.forEach((str) => {
-    const key = str.split('=')[0];
-    const value = window.decodeURI(str.split('=')[1]);
-    if (res[key]) {
-      // if (typeof res[key] === 'string') {
-      //   res[key] = [res[key], value];
-      // } else {
-      //   res[key].push(value);
-      // }
-      res[key] = [res[key], value];
-    } else {
-      res[key] = value;
-    }
-  });
-  return res as T;
+  return qs.parse(queryStr) as T;
 };

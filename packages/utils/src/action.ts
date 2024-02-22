@@ -5,8 +5,10 @@ import { getRunningEnvironment } from './platform';
  * @param text 复制文案
  * @returns Promise<boolean>
  */
-export const lowerVersionCopy = (text?: string): Promise<boolean> => {
-  if (!text) return Promise.reject(false);
+export const browerCopyToClipboard = async (
+  text?: string,
+): Promise<boolean> => {
+  if (!text) return true;
   try {
     const textArea = document.createElement('textarea');
     textArea.value = text;
@@ -21,9 +23,22 @@ export const lowerVersionCopy = (text?: string): Promise<boolean> => {
     textArea.select();
     document.execCommand('copy');
     document.body.removeChild(textArea);
-    return Promise.resolve(true);
+    return true;
   } catch (err) {
-    return Promise.reject(false);
+    // console.log('execCommand 旧版错误信息:', err);
+    if (!navigator.clipboard || !window.isSecureContext) {
+      return false;
+    }
+    return new Promise((resolve) => {
+      navigator.clipboard
+        .writeText(text)
+        .then(() => {
+          resolve(true);
+        })
+        .catch(() => {
+          resolve(false);
+        });
+    });
   }
 };
 
@@ -32,58 +47,25 @@ export const lowerVersionCopy = (text?: string): Promise<boolean> => {
  * @param text 复制文案
  * @returns Promise<boolean>
  */
-export const copy = (text?: string): Promise<boolean> => {
-  // if (getRunningEnvironment() !== 'browser') return Promise.reject(false);
-  if (getRunningEnvironment() === 'wechat') {
-    return new Promise((resolve, reject) => {
-      wx.setClipboardData({
+export const copyToClipboad = (text?: string): Promise<boolean> => {
+  if (!text) {
+    return Promise.resolve(true);
+  }
+  const env = getRunningEnvironment();
+
+  if (['wechat', 'ali'].includes(env)) {
+    return new Promise<boolean>((resolve) => {
+      const fn = env === 'wechat' ? wx.setClipboardData : my.setClipboard;
+      const successFn = () => resolve(true);
+      const failFn = () => resolve(false);
+      const miniProps = {
         data: text,
-        success: function () {
-          resolve(true);
-        },
-        fail: function () {
-          reject(false);
-        },
-      });
-    });
-  } else if (getRunningEnvironment() === 'ali') {
-    return new Promise((resolve, reject) => {
-      my.setClipboard({
-        data: text,
-        success: function () {
-          resolve(true);
-        },
-        fail: function () {
-          reject(false);
-        },
-      });
-    });
-  } else {
-    if (!text) return Promise.reject(false);
-    return new Promise((resolve, reject) => {
-      if (!navigator.clipboard || !window.isSecureContext) {
-        lowerVersionCopy(text)
-          .then(() => {
-            resolve(true);
-          })
-          .catch(() => {
-            reject(false);
-          });
-      }
-      navigator.clipboard
-        ?.writeText(text)
-        .then(() => {
-          resolve(true);
-        })
-        .catch(() => {
-          lowerVersionCopy(text)
-            .then(() => {
-              resolve(true);
-            })
-            .catch(() => {
-              reject(false);
-            });
-        });
+        success: successFn,
+        fail: failFn,
+      };
+      fn(miniProps);
     });
   }
+
+  return browerCopyToClipboard(text);
 };

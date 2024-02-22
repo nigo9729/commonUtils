@@ -15,6 +15,10 @@
   "author": "jaluik",
   "license": "ISC",
   "devDependencies": {
+    "@types/qs": "^6.9.11",
     "jest-environment-jsdom": "^29.7.0"
+  },
+  "dependencies": {
+    "qs": "^6.11.2"
   }
 }

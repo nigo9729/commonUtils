@@ -6,11 +6,11 @@ declare var my: any;
 declare module globalThis {
   var wx = {
     getSystemInfo: () => string,
-    setClipboardData: () => any,
+    setClipboardData: () => undefined,
   };
   var my = {
     getSystemInfo: () => string,
-    setClipboard: () => any,
+    setClipboard: () => undefined,
   };
   var WeixinJSBridge: any;
 }
