@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-import { copyToClipboad, browerCopyToClipboard } from '..';
+import { copyToClipboad, browerCopyToClipboard } from '../action';
 import {
   expect,
   jest,
