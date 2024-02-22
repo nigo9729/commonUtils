@@ -1,3 +1,5 @@
+import qs from 'qs';
+
 /**
  * 名字脱敏
  * @param str 姓名
@@ -85,4 +87,20 @@ export const parseJSON = (value: any): any => {
   } catch (_) {
     return value;
   }
+};
+
+/**
+ * 解析字符串(其格式类似于 url 的 query 参数形式)
+ * @param str 解析的字符串
+ * @returns 解析对象
+ */
+export const parseQueryStr = <T>(str?: string): T => {
+  if (!str) return {} as T;
+  const queryStrList = str.split('?');
+  // 兼容没有 ？ 寻找
+  if (queryStrList.length === 1) {
+    return {} as T;
+  }
+  const queryStr = queryStrList[queryStrList.length - 1];
+  return qs.parse(queryStr) as T;
 };

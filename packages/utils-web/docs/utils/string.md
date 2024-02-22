@@ -77,9 +77,30 @@ console.log(translateGender('M'));
 import { parseJSON } from '@kqfe/utils';
 
 parseJSON('{"name":"John", "age":30, "city":"New York"}');
-
 ```
 
 ```typescript run
 console.log(parseJSON('{"name":"John", "age":30, "city":"New York"}'));
+```
+
+### parseQueryStr
+
+解析字符串(其格式类似于 url 的 query 参数形式)
+
+```typescript
+import { parseQueryStr } from '@kqfe/utils';
+
+parseQueryStr();
+// {}
+
+parseQueryStr('http://www.baidu.com?key1=value1&key2=value2');
+// {key1: 'value1', key2: 'value2'}
+```
+
+```typescript run
+parseQueryStr();
+// {}
+
+parseQueryStr('http://www.baidu.com?key1=value1&key2=value2');
+// {key1: 'value1', key2: 'value2'}
 ```

@@ -58,3 +58,14 @@ export const isValidPhone = (str?: string): boolean => {
   }
   return /^1[3-9]\d{9}$/.test(str);
 };
+
+/**
+ * 校验银行卡号（仅仅判断位数：16~19位）
+ * @param str 银行卡号
+ * @returns boolean
+ */
+export const isValidBankCardNumber = (str?: string): boolean => {
+  if (!str) return false;
+  const pattern = /^([1-9]{1})(\d{15}|\d{18})$/;
+  return pattern.test(str);
+};

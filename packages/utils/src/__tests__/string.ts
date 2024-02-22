@@ -4,6 +4,7 @@ import {
   desensitizeIdNum,
   translateGender,
   parseJSON,
+  parseQueryStr,
 } from '../';
 import { expect, test, describe } from '@jest/globals';
 
@@ -152,5 +153,24 @@ describe('parseJSON函数测试', () => {
   test('处理数组输入，返回输入本身', () => {
     const arrayInput = [1, 2, 3, '四'];
     expect(parseJSON(arrayInput)).toBe(arrayInput);
+  });
+});
+
+describe('测试parseQueryStr函数', () => {
+  test('参数为空', () => {
+    expect(parseQueryStr()).toEqual({});
+  });
+  test('字符串?后空缺', () => {
+    expect(parseQueryStr('http://www.example.com?')).toEqual({});
+  });
+  test('正常格式', () => {
+    expect(
+      parseQueryStr('http://www.example.com?key=value&key1=value1'),
+    ).toEqual({ key: 'value', key1: 'value1' });
+  });
+  test('相同key, 其value为集合', () => {
+    expect(
+      parseQueryStr('http://www.example.com?key=value&key=value1'),
+    ).toEqual({ key: ['value', 'value1'] });
   });
 });
