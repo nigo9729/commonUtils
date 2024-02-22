@@ -37,8 +37,5 @@
   },
   "engines": {
     "node": ">=18"
-  },
-  "dependencies": {
-    "@types/jest": "^29.5.12"
   }
 }

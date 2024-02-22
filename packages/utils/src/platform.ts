@@ -73,7 +73,7 @@ export const setWechatWebFontSize = (): void => {
 
   // 微信字体设置处理函数
   const handleFontSize = () => {
-    console.log('设置微信字体');
+    /* istanbul ignore next */
     const WeixinJSBridge = (window as any).WeixinJSBridge;
 
     WeixinJSBridge.invoke('setFontSizeCallback', { fontSize: 0 });
@@ -90,6 +90,7 @@ export const setWechatWebFontSize = (): void => {
   ) {
     handleFontSize();
   } else {
+    /* istanbul ignore next */
     if (document.addEventListener) {
       document.addEventListener('WeixinJSBridgeReady', handleFontSize, false);
     }

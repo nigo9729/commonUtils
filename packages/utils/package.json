@@ -14,6 +14,9 @@
   ],
   "author": "jaluik",
   "license": "ISC",
+  "dependencies": {
+    "decimal.js": "^10.4.3"
+  },
   "devDependencies": {
     "@types/qs": "^6.9.11",
     "jest-environment-jsdom": "^29.7.0"

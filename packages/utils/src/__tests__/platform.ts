@@ -3,6 +3,14 @@ import {
   parseBrowser,
   setWechatWebFontSize,
 } from '../platform';
+import {
+  describe,
+  afterEach,
+  it,
+  jest,
+  expect,
+  beforeEach,
+} from '@jest/globals';
 
 describe('getRunningEnvironment', () => {
   afterEach(() => {
@@ -134,7 +142,7 @@ describe('setWechatWebFontSize', () => {
           // 定义 WeixinJSBridge
           window.WeixinJSBridge = {
             invoke: jest.fn(),
-            on: jest.fn((menuEvent, handler) => {
+            on: jest.fn((menuEvent, handler: () => void) => {
               if (menuEvent === 'menu:setfont') {
                 // 当 menu:setfont 事件被注册时，立即触发它
                 handler();
