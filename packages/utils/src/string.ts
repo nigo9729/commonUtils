@@ -1,5 +1,5 @@
 import qs from 'qs';
-import { isValidIdNum } from '../';
+import { isValidIdNum } from './';
 
 /**
  * 名字脱敏
