@@ -104,3 +104,19 @@ parseQueryStr();
 parseQueryStr('http://www.baidu.com?key1=value1&key2=value2');
 // {key1: 'value1', key2: 'value2'}
 ```
+
+### getIdInfo
+
+通过身份证号获取性别和出生日期
+
+```typescript
+import { getIdInfo } from '@kqfe/utils';
+
+getIdInfo('130321860311219');
+
+//`130321860311219`=> `{birthday: '1986-03-11',gender: 'M'}*`
+```
+
+```typescript run
+console.log(desensitizeName('130321860311219'));
+```
