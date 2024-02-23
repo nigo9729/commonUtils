@@ -1,4 +1,5 @@
 import qs from 'qs';
+import { isValidIdNum } from '../';
 
 /**
  * 名字脱敏
@@ -108,42 +109,36 @@ export const parseQueryStr = <T>(str?: string): T => {
 /**
  * 通过身份证获取性别和出生日期
  * @returns 身份证号=>{birthday: 1998-01-01, gender: M}
- * @param cardNo 身份证号
+ * @param idNo 身份证号
  */
-export const getIdInfo = (cardNo: string | number) => {
-  cardNo = cardNo + '';
-  const reg = /(^\d{15}$)|(^\d{17}([0-9]|X)$)/; //验证身份证号码的正则
-  if (reg.test(cardNo)) {
-    // 身份证号码是否合法
-    let birthday = '';
-    let gender = '';
-    if (cardNo.length === 15) {
-      const org_birthday: any = cardNo.substring(6, 12);
-      const org_gender: any = cardNo.substring(14, 15);
-      birthday =
-        '19' +
-        org_birthday.substring(0, 2) +
-        '-' +
-        org_birthday.substring(2, 4) +
-        '-' +
-        org_birthday.substring(4, 6);
-      gender = org_gender % 2 === 1 ? 'M' : 'F';
-    } else if (cardNo.length === 18) {
-      const org_birthday: any = cardNo.substring(6, 14);
-      const org_gender: any = cardNo.substring(16, 17);
-      birthday =
-        org_birthday.substring(0, 4) +
-        '-' +
-        org_birthday.substring(4, 6) +
-        '-' +
-        org_birthday.substring(6, 8);
-      gender = org_gender % 2 === 1 ? 'M' : 'F';
-    }
+export const getIdInfo = (
+  idNo: string,
+): {
+  birthday?: string;
+  gender?: 'F' | 'M';
+  error?: string;
+} => {
+  if (!idNo) {
     return {
-      birthday,
-      gender,
+      error: '身份证号不能为空！',
     };
-  } else {
-    return false;
   }
+  if (!isValidIdNum(idNo)) {
+    return {
+      error: '身份证号不合法！',
+    };
+  }
+  const birthdayStr = idNo.substring(6, 14);
+  const genderStr = idNo.substring(16, 17);
+  const birthday =
+    birthdayStr.substring(0, 4) +
+    '-' +
+    birthdayStr.substring(4, 6) +
+    '-' +
+    birthdayStr.substring(6, 8);
+  const gender = Number(genderStr) % 2 === 1 ? 'M' : 'F';
+  return {
+    birthday,
+    gender,
+  };
 };
