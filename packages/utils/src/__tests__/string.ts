@@ -187,14 +187,14 @@ describe('测试getIdInfo函数 ', () => {
     });
   });
   test('正确的身份证', () => {
-    expect(getIdInfo('110101199003077657')).toStrictEqual({
-      birthday: '1990-03-07',
+    expect(getIdInfo('520201200002245657')).toStrictEqual({
+      birthday: '2000-02-24',
       gender: 'M',
     });
   });
   test('边缘情况，如最后一位是X的18位身份证号码', () => {
-    expect(getIdInfo('11010519860908123X')).toStrictEqual({
-      birthday: '1986-09-08',
+    expect(getIdInfo('45032219980225001X')).toStrictEqual({
+      birthday: '1998-02-25',
       gender: 'M',
     });
   });
