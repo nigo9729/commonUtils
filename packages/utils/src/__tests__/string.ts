@@ -178,25 +178,25 @@ describe('测试parseQueryStr函数', () => {
 
 describe('测试getIdInfo函数 ', () => {
   test('有效的15位身份证号码', () => {
-    expect(getIdInfo('130321860311219')).toBe({
+    expect(getIdInfo('130321860311219')).toStrictEqual({
       birthday: '1986-03-11',
       gender: 'M',
     });
   });
   test('有效的18位身份证号码', () => {
-    expect(getIdInfo('110105198609081234')).toBe({
+    expect(getIdInfo('110105198609081234')).toStrictEqual({
       birthday: '1986-09-08',
       gender: 'M',
     });
   });
   test('包含非法字符的身份证号码', () => {
-    expect(getIdInfo('1101051986A9081234')).toBe(false);
+    expect(getIdInfo('1101051986A9081234')).toStrictEqual(false);
   });
   test('长度不合法的身份证号码', () => {
     expect(getIdInfo('123456')).toBe(false);
   });
   test('边缘情况，如最后一位是X的18位身份证号码', () => {
-    expect(getIdInfo('11010519860908123X')).toBe({
+    expect(getIdInfo('11010519860908123X')).toStrictEqual({
       birthday: '1986-09-08',
       gender: 'M',
     });
