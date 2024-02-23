@@ -187,7 +187,7 @@ describe('测试getIdInfo函数 ', () => {
     });
   });
   test('正确的身份证', () => {
-    expect(getIdInfo('110101199003077657')).toBe({
+    expect(getIdInfo('110101199003077657')).toStrictEqual({
       birthday: '1990-03-07',
       gender: 'M',
     });
