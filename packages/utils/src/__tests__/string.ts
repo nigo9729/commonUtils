@@ -186,10 +186,16 @@ describe('测试getIdInfo函数 ', () => {
       error: '身份证号不合法！',
     });
   });
-  test('正确的身份证', () => {
+  test('正确的男性身份证', () => {
     expect(getIdInfo('520201200002245657')).toStrictEqual({
       birthday: '2000-02-24',
       gender: 'M',
+    });
+  });
+  test('正确的女性身份证', () => {
+    expect(getIdInfo('350627197104292920')).toStrictEqual({
+      birthday: '1971-04-29',
+      gender: 'F',
     });
   });
   test('边缘情况，如最后一位是X的18位身份证号码', () => {

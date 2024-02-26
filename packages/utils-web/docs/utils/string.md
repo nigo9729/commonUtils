@@ -114,7 +114,9 @@ import { getIdInfo } from '@kqfe/utils';
 
 getIdInfo('130321860311219');
 
-//`130321860311219`=> `{birthday: '1986-03-11',gender: 'M'}*`
+//`520201200002245657`=> `{birthday: '2000-02-24',gender: 'M'}*`
+//``=> `{ error: '身份证号不能为空！' }*`
+//`123456789012345678`=> `{ error: '身份证号不合法！' }*`
 ```
 
 ```typescript run
