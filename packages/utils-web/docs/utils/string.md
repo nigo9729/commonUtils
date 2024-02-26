@@ -107,7 +107,7 @@ parseQueryStr('http://www.baidu.com?key1=value1&key2=value2');
 
 ### getIdInfo
 
-通过身份证号获取性别和出生日期
+通过身份证号获取性别和出生日期(123456789012345678:非法身份证号)
 
 ```typescript
 import { getIdInfo } from '@kqfe/utils';
