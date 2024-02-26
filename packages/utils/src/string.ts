@@ -1,4 +1,5 @@
 import qs from 'qs';
+import { isValidIdNum } from './';
 
 /**
  * 名字脱敏
@@ -103,4 +104,41 @@ export const parseQueryStr = <T>(str?: string): T => {
   }
   const queryStr = queryStrList[queryStrList.length - 1];
   return qs.parse(queryStr) as T;
+};
+
+/**
+ * 通过身份证获取性别和出生日期
+ * @returns 身份证号=>{birthday: 1998-01-01, gender: M}
+ * @param idNo 身份证号
+ */
+export const getIdInfo = (
+  idNo: string,
+): {
+  birthday?: string;
+  gender?: 'F' | 'M';
+  error?: string;
+} => {
+  if (!idNo) {
+    return {
+      error: '身份证号不能为空！',
+    };
+  }
+  if (!isValidIdNum(idNo)) {
+    return {
+      error: '身份证号不合法！',
+    };
+  }
+  const birthdayStr = idNo.substring(6, 14);
+  const genderStr = idNo.substring(16, 17);
+  const birthday =
+    birthdayStr.substring(0, 4) +
+    '-' +
+    birthdayStr.substring(4, 6) +
+    '-' +
+    birthdayStr.substring(6, 8);
+  const gender = Number(genderStr) % 2 === 1 ? 'M' : 'F';
+  return {
+    birthday,
+    gender,
+  };
 };
