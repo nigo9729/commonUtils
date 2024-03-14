@@ -104,3 +104,21 @@ parseQueryStr();
 parseQueryStr('http://www.baidu.com?key1=value1&key2=value2');
 // {key1: 'value1', key2: 'value2'}
 ```
+
+### getIdInfo
+
+通过身份证号获取性别和出生日期(如果身份证号不正确会返回{ error: '身份证号不合法！' })
+
+```typescript
+import { getIdInfo } from '@kqfe/utils';
+
+getIdInfo('130321860311219');
+
+//`520201200002245657`=> `{birthday: '2000-02-24',gender: 'M'}*`
+//``=> `{ error: '身份证号不能为空！' }*`
+//`123456789012345678`=> `{ error: '身份证号不合法！' }*`
+```
+
+```typescript run
+console.log(desensitizeName('130321860311219'));
+```

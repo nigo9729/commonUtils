@@ -5,6 +5,7 @@ import {
   translateGender,
   parseJSON,
   parseQueryStr,
+  getIdInfo,
 } from '../';
 import { expect, test, describe } from '@jest/globals';
 
@@ -172,5 +173,35 @@ describe('测试parseQueryStr函数', () => {
     expect(
       parseQueryStr('http://www.example.com?key=value&key=value1'),
     ).toEqual({ key: ['value', 'value1'] });
+  });
+});
+
+describe('测试getIdInfo函数 ', () => {
+  test('身份证为空', () => {
+    expect(getIdInfo('')).toStrictEqual({ error: '身份证号不能为空！' });
+  });
+
+  test('身份证不合法', () => {
+    expect(getIdInfo('123456789012345678')).toStrictEqual({
+      error: '身份证号不合法！',
+    });
+  });
+  test('正确的男性身份证', () => {
+    expect(getIdInfo('520201200002245657')).toStrictEqual({
+      birthday: '2000-02-24',
+      gender: 'M',
+    });
+  });
+  test('正确的女性身份证', () => {
+    expect(getIdInfo('350627197104292920')).toStrictEqual({
+      birthday: '1971-04-29',
+      gender: 'F',
+    });
+  });
+  test('边缘情况，如最后一位是X的18位身份证号码', () => {
+    expect(getIdInfo('45032219980225001X')).toStrictEqual({
+      birthday: '1998-02-25',
+      gender: 'M',
+    });
   });
 });
